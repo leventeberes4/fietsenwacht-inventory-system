@@ -19,7 +19,7 @@ public class WebSecurityConfiguration{
         http
                 .authorizeHttpRequests(auth -> auth
                         .anyRequest().permitAll()
-                ).csrf().disable().httpBasic().disable().formLogin().disable();
+                );
         return http.build();
     }
 
