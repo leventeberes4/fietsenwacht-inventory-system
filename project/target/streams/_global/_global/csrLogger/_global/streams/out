@@ -1,0 +1,16 @@
+[debug] downloaded https://repo1.maven.org/maven2/io/spring/gradle/dependency-management-plugin_2.12_1.0/1.1.7/dependency-management-plugin_2.12_1.0-1.1.7.pom
+[debug] downloaded https://repo1.maven.org/maven2/com/github/sbt/sbt-spring-boot_2.12_1.0/0.4.1/sbt-spring-boot_2.12_1.0-0.4.1.pom
+[debug] downloaded https://repo1.maven.org/maven2/com/github/sbt/sbt-spring-boot_2.12_1.0/0.4.1/sbt-spring-boot_2.12_1.0-0.4.1.pom.sha1
+[debug] downloaded https://repo1.maven.org/maven2/com/github/sbt/sbt-spring-boot_2.12_1.0/0.4.1/sbt-spring-boot-0.4.1.pom
+[debug] downloaded https://repo1.maven.org/maven2/io/spring/gradle/dependency-management-plugin_2.12_1.0/1.1.7/dependency-management-plugin_2.12_1.0-1.1.7.pom.sha1
+[debug] downloaded https://repo1.maven.org/maven2/com/github/sbt/sbt-spring-boot_2.12_1.0/0.4.1/sbt-spring-boot-0.4.1.pom.sha1
+[debug] downloaded https://repo1.maven.org/maven2/io/spring/gradle/dependency-management-plugin_2.12_1.0/1.1.7/dependency-management-plugin-1.1.7.pom
+[debug] downloaded https://repo1.maven.org/maven2/io/spring/gradle/dependency-management-plugin_2.12_1.0/1.1.7/dependency-management-plugin-1.1.7.pom.sha1
+[debug] downloaded https://repo.scala-sbt.org/scalasbt/sbt-plugin-releases/com.github.sbt/sbt-spring-boot/scala_2.12/sbt_1.0/0.4.1/ivys/ivy.xml
+[debug] downloaded https://repo.scala-sbt.org/scalasbt/sbt-plugin-releases/io.spring.gradle/dependency-management-plugin/scala_2.12/sbt_1.0/1.1.7/ivys/ivy.xml
+[debug] downloaded https://repo.scala-sbt.org/scalasbt/sbt-plugin-releases/com.github.sbt/sbt-spring-boot/scala_2.12/sbt_1.0/0.4.1/ivys/ivy.xml.sha1
+[debug] downloaded https://repo.scala-sbt.org/scalasbt/sbt-plugin-releases/io.spring.gradle/dependency-management-plugin/scala_2.12/sbt_1.0/1.1.7/ivys/ivy.xml.sha1
+[debug] downloaded https://repo.typesafe.com/typesafe/ivy-releases/io.spring.gradle/dependency-management-plugin/scala_2.12/sbt_1.0/1.1.7/ivys/ivy.xml
+[debug] downloaded https://repo.typesafe.com/typesafe/ivy-releases/com.github.sbt/sbt-spring-boot/scala_2.12/sbt_1.0/0.4.1/ivys/ivy.xml
+[debug] downloaded https://repo.typesafe.com/typesafe/ivy-releases/io.spring.gradle/dependency-management-plugin/scala_2.12/sbt_1.0/1.1.7/ivys/ivy.xml.sha1
+[debug] downloaded https://repo.typesafe.com/typesafe/ivy-releases/com.github.sbt/sbt-spring-boot/scala_2.12/sbt_1.0/0.4.1/ivys/ivy.xml.sha1
