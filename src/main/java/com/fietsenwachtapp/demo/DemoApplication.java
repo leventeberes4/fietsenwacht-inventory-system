@@ -1,9 +1,10 @@
 package com.fietsenwachtapp.demo;
 
 import com.fietsenwachtapp.demo.entities.WorkItemEntity;
-import com.fietsenwachtapp.demo.repositories.PartRepositry;
+import com.fietsenwachtapp.demo.repositories.PartRepository;
 import com.fietsenwachtapp.demo.repositories.UserRepository;
 import com.fietsenwachtapp.demo.repositories.WorkItemRepository;
+import com.fietsenwachtapp.demo.services.WarehouseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +16,15 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 public class DemoApplication implements CommandLineRunner {
 
+
 	@Autowired
 	private WorkItemRepository workItemRepository;
 	@Autowired
+	private WarehouseService warehouseService;
+	@Autowired
 	private UserRepository userRepository;
 	@Autowired
-	private PartRepositry partRepositry;
+	private PartRepository partRepositry;
 	@Autowired
 	private WorkItemFactory workItemFactory;
 
@@ -36,6 +40,7 @@ public class DemoApplication implements CommandLineRunner {
 		workItemRepository.deleteAll();
 				// save a couple of customers
 		WorkItemEntity save = workItemRepository.save(workItemFactory.createMockWorkItem(userRepository, partRepositry));
+		warehouseService.addNewWarehouse("Main","Leiden");
 	}
 
 }

@@ -5,5 +5,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.UUID;
 
-public interface PartRepositry extends MongoRepository<PartEntity, UUID> {
+public interface PartRepository extends MongoRepository<PartEntity, UUID> {
 }

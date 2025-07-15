@@ -7,7 +7,7 @@ import java.util.UUID;
 public class UserEntity {
     @Id
     private String id;
-   public String name;
+    public String name;
 
 
     public UserEntity(){}

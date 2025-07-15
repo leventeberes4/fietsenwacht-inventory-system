@@ -3,10 +3,8 @@ package com.fietsenwachtapp.demo;
 import com.fietsenwachtapp.demo.entities.PartEntity;
 import com.fietsenwachtapp.demo.entities.UserEntity;
 import com.fietsenwachtapp.demo.entities.WorkItemEntity;
-import com.fietsenwachtapp.demo.repositories.PartRepositry;
+import com.fietsenwachtapp.demo.repositories.PartRepository;
 import com.fietsenwachtapp.demo.repositories.UserRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -14,7 +12,7 @@ import java.util.UUID;
 
 @Service
 public class WorkItemFactory {
-    public static WorkItemEntity createMockWorkItem(UserRepository userRepository,PartRepositry partRepositry) {
+    public static WorkItemEntity createMockWorkItem(UserRepository userRepository, PartRepository partRepositry) {
         // Mock address
         WorkItemEntity.Address address = new WorkItemEntity.Address();
         address.city = "MockCity";
