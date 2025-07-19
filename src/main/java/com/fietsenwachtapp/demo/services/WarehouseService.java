@@ -2,27 +2,23 @@ package com.fietsenwachtapp.demo.services;
 
 import com.fietsenwachtapp.demo.entities.InventoryItem;
 import com.fietsenwachtapp.demo.entities.WarehouseEntity;
-import com.fietsenwachtapp.demo.repositories.PartRepository;
 import com.fietsenwachtapp.demo.repositories.WarehouseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
-public class WarehouseService {
+public class WarehouseService extends InventoryService<WarehouseEntity,WarehouseRepository> {
 
     @Autowired
     WarehouseRepository warehouseRepository;
-    PartRepository partRepositry;
 
-       public void addNewWarehouse(String name, String address){
-            warehouseRepository.deleteAll();
+       public WarehouseEntity addNewWarehouse(String name, String address){
+           List<InventoryItem> newInventoryList = new ArrayList<>() {
+           };
 
-            List<InventoryItem> newInventoryList = new ArrayList<>();
-
-            WarehouseEntity newWarehouse = new WarehouseEntity(name,newInventoryList,address);
-            warehouseRepository.save(newWarehouse);
-        }
+           WarehouseEntity newWarehouse = new WarehouseEntity(UUID.randomUUID(),name,newInventoryList,address);
+           return warehouseRepository.insert(newWarehouse);
+       }
 }

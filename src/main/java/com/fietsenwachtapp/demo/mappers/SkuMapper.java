@@ -1,0 +1,19 @@
+package com.fietsenwachtapp.demo.mappers;
+
+import com.fietsenwachtapp.demo.DTOs.SkuCreateDTO;
+import com.fietsenwachtapp.demo.DTOs.SkuDTO;
+import com.fietsenwachtapp.demo.entities.SKUEntity;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+
+
+@Mapper()
+public interface SkuMapper {
+
+    @Mapping(target = "skuId",source = "id")
+    @Mapping(target = "name",source = "name")
+    @Mapping(target = "priceInCents",source = "priceInCents")
+    SkuDTO toDTO(SKUEntity skuEntity);
+
+    SKUEntity toSKUEntity(SkuCreateDTO skuCreateDTO);
+}

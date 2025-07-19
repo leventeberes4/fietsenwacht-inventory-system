@@ -1,37 +1,68 @@
-HELP.md
-.gradle
-build/
-!gradle/wrapper/gradle-wrapper.jar
-!**/src/main/**/build/
-!**/src/test/**/build/
+# ------------------------------
+# Maven
+# ------------------------------
+target/
+!.mvn/wrapper/maven-wrapper.jar
+**/logs/
+*.log
+*.class
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-bin/
-!**/src/main/**/bin/
-!**/src/test/**/bin/
+# ------------------------------
+# Spring Boot
+# ------------------------------
+# Exclude the built fat jar
+*.jar
 
-### IntelliJ IDEA ###
-.idea
-*.iws
+# ------------------------------
+# IDEs
+# ------------------------------
+# IntelliJ IDEA
+.idea/
 *.iml
-*.ipr
-out/
-!**/src/main/**/out/
-!**/src/test/**/out/
 
-### NetBeans ###
+# VS Code
+.vscode/
+
+# Eclipse
+*.classpath
+*.project
+*.settings/
+
+# NetBeans
 /nbproject/private/
+/build/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
 
-### VS Code ###
-.vscode/
+# ------------------------------
+# OS files
+# ------------------------------
+.DS_Store
+Thumbs.db
+
+# ------------------------------
+# Environment files (optional)
+# ------------------------------
+.env
+.env.local
+*.secret
+*.key
+
+# ------------------------------
+# Backup files
+# ------------------------------
+*~
+*.swp
+*.bak
+*.tmp
+
+# ------------------------------
+# Others (optional)
+# ------------------------------
+# Ignore database or generated data files
+*.h2.db
+*.mv.db
+*.sqlite
+*.db

@@ -1,16 +1,23 @@
 package com.fietsenwachtapp.demo.entities;
 
+import org.springframework.data.annotation.Id;
+
+import java.util.UUID;
+
 public class InventoryItem {
-        private String itemId;
+        @Id
+        private UUID SKU_ID;
         private int quantity;
 
-        public InventoryItem(String itemId, int quantity) {
-            this.itemId = itemId;
+        public InventoryItem(UUID itemId, int quantity) {
+            this.SKU_ID = itemId;
             this.quantity = quantity;
         }
 
-        public String getItemId() {
-            return itemId;
+        public InventoryItem() {}
+
+        public UUID getSKU_ID() {
+            return SKU_ID;
         }
 
         public int getQuantity() {

@@ -1,17 +1,20 @@
 package com.fietsenwachtapp.demo.entities;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.List;
+import java.util.*;
 
+@Document
 public abstract class InventoryHolder {
     @Id
-    private String id;
+    public UUID id;
     protected String name;
-    protected List<InventoryItem> inventory;
+    private List<InventoryItem> inventory = new ArrayList<>();
 
 
-    public InventoryHolder( String name, List<InventoryItem> inventory) {
+    public InventoryHolder(UUID id, String name, List<InventoryItem>  inventory) {
+        this.id = id;
         this.name = name;
         this.inventory = inventory;
     }
@@ -19,7 +22,7 @@ public abstract class InventoryHolder {
     protected InventoryHolder() {
     }
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
@@ -27,7 +30,22 @@ public abstract class InventoryHolder {
         return name;
     }
 
-    public List<InventoryItem> getInventory() {
-        return inventory;
+    // TODO: Potentially use HashMap for more performance
+    public void addOrUpdateItem(InventoryItem item) {
+        for (InventoryItem i : inventory) {
+            if (i.getSKU_ID().equals(item.getSKU_ID())) {
+                i.setQuantity(i.getQuantity() + item.getQuantity());
+                return;
+            }
+        }
+        inventory.add(item);
     }
+
+    public InventoryItem getItem(UUID skuId) {
+        return inventory.stream()
+                .filter(i -> i.getSKU_ID().equals(skuId))
+                .findFirst()
+                .orElse(null);
+    }
+
 }
