@@ -1,6 +1,7 @@
 package com.fietsenwachtapp.demo.entities;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigInteger;
@@ -14,11 +15,15 @@ public class SKUEntity {
     private String name;
     private long priceInCents;
 
+    @Indexed(unique = true)
+    private String skuCode;
+
     // Constructor
-    public SKUEntity(String name, long priceInCents) {
+    public SKUEntity(String name, long priceInCents,String skuCode) {
         this.id = UUID.randomUUID();
         this.name = name;
         this.priceInCents = priceInCents;
+        this.skuCode = skuCode;
     }
 
     // Getters and setters
@@ -44,5 +49,13 @@ public class SKUEntity {
 
     public void setPriceInCents(long priceInCents) {
         this.priceInCents = priceInCents;
+    }
+
+    public String getSkuCode() {
+        return skuCode;
+    }
+
+    public void setSkuCode(String skuCode) {
+        this.skuCode = skuCode;
     }
 }

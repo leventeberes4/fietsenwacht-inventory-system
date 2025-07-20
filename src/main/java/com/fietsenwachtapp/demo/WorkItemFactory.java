@@ -38,7 +38,7 @@ public class WorkItemFactory {
                 Arrays.asList(mech1, mech2),
                 "Alice Johnson",
                 "Brake replacement and oil change",
-                List.of(new SKUEntity("asd",1),new SKUEntity("asd",1)),
+                List.of(new SKUEntity("asd",1,"ASD"),new SKUEntity("asd",1,"FSAF")),
                 JobStatus.INPROGRESS
         );
     }
