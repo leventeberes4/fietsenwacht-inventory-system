@@ -8,8 +8,15 @@ import com.fietsenwachtapp.demo.mappers.SkuMapper;
 import com.fietsenwachtapp.demo.repositories.SKURepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class SKUService {
@@ -42,4 +49,67 @@ public class SKUService {
 
     }
 
+    public boolean deleteSKU(UUID skuId) {
+        if(skuRepository.findById(skuId).isEmpty()){
+           return false;
+        }
+        skuRepository.deleteById(skuId);
+        return true;
+    }
+
+    public SkuDTO updateSKU(UUID skuId, SkuCreateDTO updatedSku) {
+        SKUEntity existing = skuRepository.findById(skuId)
+                .orElseThrow(() -> new RuntimeException("SKU not found"));
+
+        existing.setName(updatedSku.name());
+
+        SKUEntity saved = skuRepository.save(existing);
+        return skuMapper.toDTO(saved);
+    }
+
+    public int bulkAddFromFile(MultipartFile file,boolean upsert) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(file.getInputStream()));
+        String line;
+        List<SKUEntity> skusToSave = new ArrayList<>();
+
+        boolean isFirstLine = true;
+        while ((line = reader.readLine()) != null) {
+            // Skip header line
+            if (isFirstLine) {
+                isFirstLine = false;
+                if (line.toLowerCase().contains("name") && line.contains(",")) {
+                    continue;
+                }
+            }
+
+            String[] cols = line.split(",");
+            if (cols.length < 3) continue; // skip malformed line
+
+            String name = cols[0].trim();
+            long price;
+            try {
+                price = Long.parseLong(cols[1].trim());
+            } catch (NumberFormatException e) {
+                continue; // skip bad line
+            }
+            String skuCode = cols[2].trim();
+
+            Optional<SKUEntity> existingOpt = skuRepository.findBySkuCode(skuCode);
+            if (existingOpt.isPresent()) {
+                if (upsert) {
+                    SKUEntity existing = existingOpt.get();
+                    existing.setName(name);
+                    existing.setPriceInCents(price);
+                    existing.setSkuCode(skuCode);
+                    skusToSave.add(existing);
+                }
+            } else {
+                SKUEntity newSku = new SKUEntity(name, price, skuCode);
+                skusToSave.add(newSku);
+            }
+        }
+
+        skuRepository.saveAll(skusToSave);
+        return skusToSave.size();
+    }
 }
