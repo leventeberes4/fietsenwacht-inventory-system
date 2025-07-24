@@ -13,7 +13,7 @@ While they don’t interact with inventory directly, their actions automatically
 - **Frontend**: React, Redux Toolkit, Tailwind CSS
 - **Backend**: Spring Boot
 - **Database**: MongoDB
-- **Other**: RESTful APIs, Docker (optional)
+- **Other**: RESTful APIs, Docker
 
 ## ✅ Features (so far)
 
