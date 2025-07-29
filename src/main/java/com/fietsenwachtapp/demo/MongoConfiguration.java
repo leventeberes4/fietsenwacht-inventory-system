@@ -19,6 +19,7 @@ public class MongoConfiguration extends AbstractMongoClientConfiguration {
         adapter.registerConverter(new InventoryListToMapConverter());
         adapter.registerConverter(new InventoryMapToListConverter());
     }
+
     @ReadingConverter
     static class InventoryListToMapConverter implements Converter<List<InventoryItem>, Map<UUID, InventoryItem>> {
         @Override
@@ -26,11 +27,12 @@ public class MongoConfiguration extends AbstractMongoClientConfiguration {
             if (source == null) return Collections.emptyMap();
             return source.stream()
                     .collect(Collectors.toMap(
-                            InventoryItem::getSKU_ID, // Ensure this returns UUID
+                            InventoryItem::getSkuId, // Ensure this returns UUID
                             Function.identity()
                     ));
         }
     }
+
     @WritingConverter
     static class InventoryMapToListConverter implements Converter<Map<UUID, InventoryItem>, List<InventoryItem>> {
         @Override

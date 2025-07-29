@@ -1,7 +1,10 @@
 package com.fietsenwachtapp.demo.DTOs;
 
-import java.math.BigInteger;
 
-public record SkuCreateDTO(String name, long priceInCents,String skuCode){
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+
+public record SkuCreateDTO(@NotBlank String name, @NotNull @Positive long priceInCents, @NotBlank String skuCode) {
 
 }

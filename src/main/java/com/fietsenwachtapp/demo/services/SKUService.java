@@ -8,6 +8,7 @@ import com.fietsenwachtapp.demo.mappers.SkuMapper;
 import com.fietsenwachtapp.demo.repositories.SKURepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedReader;
@@ -27,31 +28,35 @@ public class SKUService {
     @Autowired
     SkuMapper skuMapper;
 
-    public List<SkuDTO> getSKUList(){
+    public List<SkuDTO> getSKUList() {
         return skuRepository.findAll().stream().map(skuMapper::toDTO).toList();
     }
 
-
-    public SkuDTO addSKU(SkuCreateDTO skuToAdd){
+    private void validateSKU(SkuCreateDTO skuToAdd) {
         if (skuToAdd.name() == null || skuToAdd.name().isBlank()) {
             throw new IllegalArgumentException("SKU name cannot be empty.");
         }
-        if (skuToAdd.priceInCents() < 0) {
-            throw new IllegalArgumentException("Price cannot be negative.");
+        if (skuToAdd.skuCode() == null || skuToAdd.skuCode().isBlank()) {
+            throw new IllegalArgumentException("SKU code cannot be empty.");
         }
-        if (skuRepository.findAllByName(skuToAdd.name()).isEmpty()) {
-            SKUEntity entity = skuMapper.toSKUEntity(skuToAdd);
-            SKUEntity saved = skuRepository.save(entity);
-            return skuMapper.toDTO(saved);
-        } else {
-            throw new IllegalArgumentException("SKU with this name already exists: " +skuToAdd.name());
+        if (skuRepository.findBySkuCode(skuToAdd.skuCode()).isPresent()) {
+            throw new IllegalArgumentException("SKU with this code already exists: " + skuToAdd.skuCode());
         }
+        if (skuRepository.findByName(skuToAdd.name()).isPresent()) {
+            throw new IllegalArgumentException("SKU with this name already exists: " + skuToAdd.name());
+        }
+    }
 
+    public SkuDTO addSKU(SkuCreateDTO skuToAdd) {
+        validateSKU(skuToAdd);
+        SKUEntity entity = skuMapper.toSKUEntity(skuToAdd);
+        SKUEntity saved = skuRepository.save(entity);
+        return skuMapper.toDTO(saved);
     }
 
     public boolean deleteSKU(UUID skuId) {
-        if(skuRepository.findById(skuId).isEmpty()){
-           return false;
+        if (skuRepository.findById(skuId).isEmpty()) {
+            return false;
         }
         skuRepository.deleteById(skuId);
         return true;
@@ -59,15 +64,16 @@ public class SKUService {
 
     public SkuDTO updateSKU(UUID skuId, SkuCreateDTO updatedSku) {
         SKUEntity existing = skuRepository.findById(skuId)
-                .orElseThrow(() -> new RuntimeException("SKU not found"));
+                .orElseThrow(() -> new RuntimeException("SKU not found: " + skuId));
 
-        existing.setName(updatedSku.name());
+        skuMapper.updateEntityFromDto(updatedSku, existing);
 
         SKUEntity saved = skuRepository.save(existing);
         return skuMapper.toDTO(saved);
     }
 
-    public int bulkAddFromFile(MultipartFile file,boolean upsert) throws IOException {
+    @Transactional
+    public int bulkAddFromFile(MultipartFile file, boolean upsert) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(file.getInputStream()));
         String line;
         List<SKUEntity> skusToSave = new ArrayList<>();
