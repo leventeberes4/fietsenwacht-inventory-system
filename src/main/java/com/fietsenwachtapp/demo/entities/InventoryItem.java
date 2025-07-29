@@ -6,18 +6,18 @@ import java.util.UUID;
 
 public class InventoryItem {
         @Id
-        private UUID SKU_ID;
+        private UUID skuId;
         private int quantity;
 
         public InventoryItem(UUID itemId, int quantity) {
-            this.SKU_ID = itemId;
+            this.skuId = itemId;
             this.quantity = quantity;
         }
 
         public InventoryItem() {}
 
-        public UUID getSKU_ID() {
-            return SKU_ID;
+        public UUID getSkuId() {
+            return skuId;
         }
 
         public int getQuantity() {
